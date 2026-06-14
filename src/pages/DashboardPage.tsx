@@ -163,8 +163,8 @@ export function DashboardPage() {
                   border: '1px solid #374151',
                   borderRadius: '8px'
                 }}
-                formatter={(v: number) => [
-                  `Rs ${v.toLocaleString('en-IN')}`,
+                formatter={(v) => [
+                  `Rs ${typeof v === 'number' ? v.toLocaleString('en-IN') : v}`,
                   'Revenue'
                 ]}
               />
@@ -202,8 +202,8 @@ export function DashboardPage() {
                 )}
               </Pie>
               <Tooltip
-                formatter={(v: number) => [
-                  `Rs ${v.toLocaleString('en-IN')}`,
+                formatter={(v) => [
+                  `Rs ${typeof v === 'number' ? v.toLocaleString('en-IN') : v}`,
                   'Revenue'
                 ]}
                 contentStyle={{
