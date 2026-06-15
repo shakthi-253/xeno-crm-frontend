@@ -66,15 +66,12 @@ export function AudiencePage() {
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
 
-  // Load preset counts on mount
   useEffect(() => {
     const loadCounts = async () => {
       const counts: Record<string, number> = {}
       for (const preset of SEGMENT_PRESETS) {
         try {
-          const result = await campaignService.previewSegment(
-            preset.filter_rules
-          )
+          const result = await campaignService.previewSegment(preset.filter_rules)
           counts[preset.id] = result.customer_count
         } catch {
           counts[preset.id] = 0
@@ -149,14 +146,14 @@ export function AudiencePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">
+          <h1 className="text-2xl font-bold" style={{ color: '#f5d0de' }}>
             Audience Explorer
           </h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-sm mt-1" style={{ color: '#7a3550' }}>
             Segment your customers intelligently
           </p>
         </div>
-        <div className="flex items-center gap-2 text-gray-400">
+        <div className="flex items-center gap-2" style={{ color: '#c8899e' }}>
           <Users className="w-4 h-4" />
           <span className="text-sm">
             {totalCount.toLocaleString('en-IN')} customers
@@ -165,10 +162,10 @@ export function AudiencePage() {
       </div>
 
       {/* AI Query */}
-      <div className="bg-gray-900 border border-violet-500/20 rounded-xl p-4">
+      <div className="rounded-xl p-4" style={{ background: '#0f0810', border: '1px solid #c0185a30' }}>
         <div className="flex items-center gap-2 mb-3">
-          <Zap className="w-4 h-4 text-violet-400" />
-          <span className="text-violet-400 text-sm font-medium">
+          <Zap className="w-4 h-4" style={{ color: '#c0185a' }} />
+          <span className="text-sm font-medium" style={{ color: '#c0185a' }}>
             AI Segment Builder
           </span>
         </div>
@@ -178,12 +175,18 @@ export function AudiencePage() {
             onChange={(e) => setAiQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleAiQuery()}
             placeholder='Try: "sneaker buyers from Chennai" or "inactive customers"'
-            className="flex-1 bg-gray-800 border border-gray-700 focus:border-violet-500 text-gray-200 placeholder-gray-600 rounded-lg px-4 py-2.5 text-sm outline-none transition-colors"
+            className="flex-1 rounded-lg px-4 py-2.5 text-sm outline-none transition-colors"
+            style={{
+              background: '#1a0810',
+              border: '1px solid #2a1520',
+              color: '#f5d0de',
+            }}
           />
           <button
             onClick={handleAiQuery}
             disabled={!aiQuery.trim() || aiLoading}
-            className="flex items-center gap-2 bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors"
+            className="flex items-center gap-2 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors disabled:opacity-50"
+            style={{ background: '#c0185a' }}
           >
             {aiLoading
               ? <Loader2 className="w-4 h-4 animate-spin" />
@@ -206,18 +209,21 @@ export function AudiencePage() {
               className={`flex flex-col items-start p-4 rounded-xl border transition-all text-left ${
                 isActive
                   ? `border-current/30 ${preset.color}`
-                  : 'bg-gray-900 border-gray-800 hover:border-gray-700'
+                  : 'hover:border-gray-700'
               }`}
+              style={!isActive ? { background: '#0f0810', borderColor: '#2a1520' } : {}}
             >
               <Icon className={`w-5 h-5 mb-2 ${isActive ? '' : 'text-gray-500'}`} />
-              <p className={`font-medium text-sm ${isActive ? '' : 'text-gray-300'}`}>
+              <p className={`font-medium text-sm ${isActive ? '' : ''}`}
+                style={!isActive ? { color: '#c8899e' } : {}}>
                 {preset.label}
               </p>
-              <p className="text-gray-500 text-xs mt-0.5">
+              <p className="text-xs mt-0.5" style={{ color: '#5a2535' }}>
                 {preset.description}
               </p>
               {presetCounts[preset.id] !== undefined && (
-                <p className={`text-xs font-semibold mt-2 ${isActive ? '' : 'text-gray-400'}`}>
+                <p className={`text-xs font-semibold mt-2 ${isActive ? '' : ''}`}
+                  style={!isActive ? { color: '#7a3550' } : {}}>
                   {presetCounts[preset.id].toLocaleString('en-IN')} customers
                 </p>
               )}
@@ -227,25 +233,26 @@ export function AudiencePage() {
       </div>
 
       {/* Manual Filters */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl">
+      <div className="rounded-xl" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
         <button
           onClick={() => setShowFilters(!showFilters)}
           className="w-full flex items-center justify-between px-5 py-4"
         >
           <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-gray-400" />
-            <span className="text-gray-300 text-sm font-medium">
+            <Filter className="w-4 h-4" style={{ color: '#c8899e' }} />
+            <span className="text-sm font-medium" style={{ color: '#c8899e' }}>
               Manual Filters
             </span>
           </div>
-          <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`}
+            style={{ color: '#7a3550' }} />
         </button>
 
         {showFilters && (
-          <div className="px-5 pb-5 border-t border-gray-800 pt-4">
+          <div className="px-5 pb-5 pt-4" style={{ borderTop: '1px solid #2a1520' }}>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="text-gray-500 text-xs uppercase tracking-wide block mb-2">
+                <label className="text-xs uppercase tracking-wide block mb-2" style={{ color: '#7a3550' }}>
                   Min. Total Spend (Rs)
                 </label>
                 <input
@@ -253,17 +260,19 @@ export function AudiencePage() {
                   value={minSpend}
                   onChange={(e) => setMinSpend(e.target.value)}
                   placeholder="e.g. 5000"
-                  className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-violet-500"
+                  className="w-full rounded-lg px-3 py-2 text-sm outline-none"
+                  style={{ background: '#1a0810', border: '1px solid #2a1520', color: '#f5d0de' }}
                 />
               </div>
               <div>
-                <label className="text-gray-500 text-xs uppercase tracking-wide block mb-2">
+                <label className="text-xs uppercase tracking-wide block mb-2" style={{ color: '#7a3550' }}>
                   City
                 </label>
                 <select
                   value={selectedCity}
                   onChange={(e) => setSelectedCity(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-violet-500"
+                  className="w-full rounded-lg px-3 py-2 text-sm outline-none"
+                  style={{ background: '#1a0810', border: '1px solid #2a1520', color: '#f5d0de' }}
                 >
                   {CITIES.map(c => (
                     <option key={c} value={c}>{c || 'All Cities'}</option>
@@ -271,13 +280,14 @@ export function AudiencePage() {
                 </select>
               </div>
               <div>
-                <label className="text-gray-500 text-xs uppercase tracking-wide block mb-2">
+                <label className="text-xs uppercase tracking-wide block mb-2" style={{ color: '#7a3550' }}>
                   Category
                 </label>
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 text-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-violet-500"
+                  className="w-full rounded-lg px-3 py-2 text-sm outline-none"
+                  style={{ background: '#1a0810', border: '1px solid #2a1520', color: '#f5d0de' }}
                 >
                   {CATEGORIES.map(c => (
                     <option key={c} value={c}>{c || 'All Categories'}</option>
@@ -288,13 +298,15 @@ export function AudiencePage() {
             <div className="flex gap-3 mt-4">
               <button
                 onClick={applyManualFilters}
-                className="bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                className="text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                style={{ background: '#c0185a' }}
               >
                 Apply Filters
               </button>
               <button
                 onClick={clearFilters}
-                className="flex items-center gap-1.5 text-gray-400 hover:text-gray-200 text-sm transition-colors"
+                className="flex items-center gap-1.5 text-sm transition-colors"
+                style={{ color: '#7a3550' }}
               >
                 <X className="w-3 h-3" />
                 Clear
@@ -305,26 +317,27 @@ export function AudiencePage() {
       </div>
 
       {/* Customer Table */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-800">
-          <h2 className="text-white font-medium text-sm">
+      <div className="rounded-xl overflow-hidden" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
+        <div className="px-5 py-4" style={{ borderBottom: '1px solid #2a1520' }}>
+          <h2 className="text-sm font-medium" style={{ color: '#f5d0de' }}>
             {totalCount.toLocaleString('en-IN')} Customers
           </h2>
         </div>
 
         {loading ? (
           <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-6 h-6 text-violet-400 animate-spin" />
+            <Loader2 className="w-6 h-6 animate-spin" style={{ color: '#c0185a' }} />
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-800">
+                <tr style={{ borderBottom: '1px solid #2a1520' }}>
                   {['Name', 'City', 'Total Spent', 'Orders', 'Last Purchase', 'Status'].map(h => (
                     <th
                       key={h}
-                      className="text-left px-5 py-3 text-gray-500 text-xs uppercase tracking-wide font-medium"
+                      className="text-left px-5 py-3 text-xs uppercase tracking-wide font-medium"
+                      style={{ color: '#7a3550' }}
                     >
                       {h}
                     </th>
@@ -352,28 +365,29 @@ export function AudiencePage() {
                   return (
                     <tr
                       key={customer.customer_id}
-                      className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors"
+                      className="transition-colors"
+                      style={{ borderBottom: '1px solid #1a0810' }}
                     >
                       <td className="px-5 py-3.5">
-                        <p className="text-gray-200 text-sm font-medium">
+                        <p className="text-sm font-medium" style={{ color: '#f5d0de' }}>
                           {customer.name}
                         </p>
-                        <p className="text-gray-500 text-xs">
+                        <p className="text-xs" style={{ color: '#7a3550' }}>
                           {customer.email}
                         </p>
                       </td>
-                      <td className="px-5 py-3.5 text-gray-400 text-sm">
+                      <td className="px-5 py-3.5 text-sm" style={{ color: '#c8899e' }}>
                         {customer.city}
                       </td>
                       <td className="px-5 py-3.5">
-                        <span className="text-white font-semibold text-sm">
+                        <span className="font-semibold text-sm" style={{ color: '#f5d0de' }}>
                           Rs {customer.total_spent.toLocaleString('en-IN')}
                         </span>
                       </td>
-                      <td className="px-5 py-3.5 text-gray-400 text-sm">
+                      <td className="px-5 py-3.5 text-sm" style={{ color: '#c8899e' }}>
                         {customer.total_orders}
                       </td>
-                      <td className="px-5 py-3.5 text-gray-400 text-xs">
+                      <td className="px-5 py-3.5 text-xs" style={{ color: '#c8899e' }}>
                         {days !== null ? `${days}d ago` : 'Never'}
                       </td>
                       <td className="px-5 py-3.5">

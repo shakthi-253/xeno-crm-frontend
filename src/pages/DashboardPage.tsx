@@ -8,7 +8,7 @@ import {
 import { Users, ShoppingCart, TrendingUp, Megaphone } from 'lucide-react'
 import { api } from '../services/api'
 
-const COLORS = ['#7c3aed','#06b6d4','#10b981','#f59e0b','#ef4444','#8b5cf6']
+const COLORS = ['#c0185a','#d4a017','#7a3db0','#e05c80','#f0c040','#a060d0']
 
 function MetricCard({
   title,
@@ -24,13 +24,13 @@ function MetricCard({
   color: string
 }) {
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+    <div style={{ background: '#0f0810', border: '1px solid #2a1520' }} className="rounded-xl p-5">
       <div className={`w-10 h-10 rounded-lg ${color} flex items-center justify-center mb-4`}>
         <Icon className="w-5 h-5 text-white" />
       </div>
-      <p className="text-2xl font-bold text-white mb-1">{value}</p>
-      <p className="text-gray-400 text-sm font-medium">{title}</p>
-      <p className="text-gray-600 text-xs mt-0.5">{subtitle}</p>
+      <p className="text-2xl font-bold mb-1" style={{ color: '#f5d0de' }}>{value}</p>
+      <p className="text-sm font-medium" style={{ color: '#c8899e' }}>{title}</p>
+      <p className="text-xs mt-0.5" style={{ color: '#5a2535' }}>{subtitle}</p>
     </div>
   )
 }
@@ -67,7 +67,8 @@ export function DashboardPage() {
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
-              className="bg-gray-900 border border-gray-800 rounded-xl h-32 animate-pulse"
+              className="rounded-xl h-32 animate-pulse"
+              style={{ background: '#0f0810', border: '1px solid #2a1520' }}
             />
           ))}
         </div>
@@ -91,8 +92,8 @@ export function DashboardPage() {
 
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">Dashboard</h1>
-        <p className="text-gray-400 text-sm mt-1">
+        <h1 className="text-2xl font-bold" style={{ color: '#f5d0de' }}>Dashboard</h1>
+        <p className="text-sm mt-1" style={{ color: '#7a3550' }}>
           Your brand marketing performance
         </p>
       </div>
@@ -104,28 +105,28 @@ export function DashboardPage() {
           value={totalCustomers}
           subtitle={`+${newThisMonth} this month`}
           icon={Users}
-          color="bg-violet-600"
+          color="bg-rose-700"
         />
         <MetricCard
           title="Total Orders"
           value={totalOrders.toLocaleString('en-IN')}
           subtitle="All time orders"
           icon={ShoppingCart}
-          color="bg-cyan-600"
+          color="bg-yellow-600"
         />
         <MetricCard
           title="Total Revenue"
           value={`Rs ${revenueInLakhs}L`}
           subtitle={`Rs ${revenueThisMonth} this month`}
           icon={TrendingUp}
-          color="bg-emerald-600"
+          color="bg-purple-700"
         />
         <MetricCard
           title="Campaigns"
           value={totalCampaigns}
           subtitle={`${activeCampaigns} running`}
           icon={Megaphone}
-          color="bg-orange-600"
+          color="bg-rose-800"
         />
       </div>
 
@@ -133,34 +134,34 @@ export function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {/* Revenue Trend */}
-        <div className="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h2 className="text-white font-semibold mb-1">Revenue Trend</h2>
-          <p className="text-gray-500 text-xs mb-5">Last 6 months</p>
+        <div className="lg:col-span-2 rounded-xl p-6" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
+          <h2 className="font-semibold mb-1" style={{ color: '#f5d0de' }}>Revenue Trend</h2>
+          <p className="text-xs mb-5" style={{ color: '#7a3550' }}>Last 6 months</p>
           <ResponsiveContainer width="100%" height={220}>
             <AreaChart data={overview?.revenue_trend ?? []}>
               <defs>
                 <linearGradient id="rev" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#7c3aed" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#c0185a" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#c0185a" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2a1520" />
               <XAxis
                 dataKey="month"
-                tick={{ fill: '#6b7280', fontSize: 11 }}
+                tick={{ fill: '#7a3550', fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
               />
               <YAxis
-                tick={{ fill: '#6b7280', fontSize: 11 }}
+                tick={{ fill: '#7a3550', fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(v) => `${(v / 1000).toFixed(0)}K`}
               />
               <Tooltip
                 contentStyle={{
-                  background: '#1f2937',
-                  border: '1px solid #374151',
+                  background: '#1a0810',
+                  border: '1px solid #2a1520',
                   borderRadius: '8px'
                 }}
                 formatter={(v) => [
@@ -171,7 +172,7 @@ export function DashboardPage() {
               <Area
                 type="monotone"
                 dataKey="revenue"
-                stroke="#7c3aed"
+                stroke="#c0185a"
                 strokeWidth={2}
                 fill="url(#rev)"
               />
@@ -180,9 +181,9 @@ export function DashboardPage() {
         </div>
 
         {/* Category Breakdown */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h2 className="text-white font-semibold mb-1">By Category</h2>
-          <p className="text-gray-500 text-xs mb-4">Revenue breakdown</p>
+        <div className="rounded-xl p-6" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
+          <h2 className="font-semibold mb-1" style={{ color: '#f5d0de' }}>By Category</h2>
+          <p className="text-xs mb-4" style={{ color: '#7a3550' }}>Revenue breakdown</p>
           <ResponsiveContainer width="100%" height={160}>
             <PieChart>
               <Pie
@@ -207,8 +208,8 @@ export function DashboardPage() {
                   'Revenue'
                 ]}
                 contentStyle={{
-                  background: '#1f2937',
-                  border: '1px solid #374151',
+                  background: '#1a0810',
+                  border: '1px solid #2a1520',
                   borderRadius: '8px'
                 }}
               />
@@ -223,11 +224,11 @@ export function DashboardPage() {
                       className="w-2 h-2 rounded-full"
                       style={{ background: COLORS[i] }}
                     />
-                    <span className="text-gray-400 text-xs truncate">
+                    <span className="text-xs truncate" style={{ color: '#c8899e' }}>
                       {cat.category}
                     </span>
                   </div>
-                  <span className="text-gray-300 text-xs font-medium">
+                  <span className="text-xs font-medium" style={{ color: '#f5d0de' }}>
                     {(cat.revenue / 1000).toFixed(0)}K
                   </span>
                 </div>
@@ -241,39 +242,39 @@ export function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* Customer Growth */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h2 className="text-white font-semibold mb-1">Customer Growth</h2>
-          <p className="text-gray-500 text-xs mb-5">New signups per month</p>
+        <div className="rounded-xl p-6" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
+          <h2 className="font-semibold mb-1" style={{ color: '#f5d0de' }}>Customer Growth</h2>
+          <p className="text-xs mb-5" style={{ color: '#7a3550' }}>New signups per month</p>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={customerStats?.growth_trend ?? []}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2a1520" />
               <XAxis
                 dataKey="month"
-                tick={{ fill: '#6b7280', fontSize: 11 }}
+                tick={{ fill: '#7a3550', fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
               />
               <YAxis
-                tick={{ fill: '#6b7280', fontSize: 11 }}
+                tick={{ fill: '#7a3550', fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
               />
               <Tooltip
                 contentStyle={{
-                  background: '#1f2937',
-                  border: '1px solid #374151',
+                  background: '#1a0810',
+                  border: '1px solid #2a1520',
                   borderRadius: '8px'
                 }}
               />
-              <Bar dataKey="count" fill="#06b6d4" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="count" fill="#d4a017" radius={[3, 3, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* Recent Campaigns */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h2 className="text-white font-semibold mb-1">Recent Campaigns</h2>
-          <p className="text-gray-500 text-xs mb-5">Performance overview</p>
+        <div className="rounded-xl p-6" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
+          <h2 className="font-semibold mb-1" style={{ color: '#f5d0de' }}>Recent Campaigns</h2>
+          <p className="text-xs mb-5" style={{ color: '#7a3550' }}>Performance overview</p>
           <div className="space-y-3">
             {(overview?.campaign_performance?.slice(0, 5) ?? []).map(
               (camp: any, i: number) => {
@@ -284,7 +285,8 @@ export function DashboardPage() {
                 return (
                   <div
                     key={i}
-                    className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg"
+                    className="flex items-center gap-3 p-3 rounded-lg"
+                    style={{ background: '#1a0810' }}
                   >
                     <div
                       className={`w-2 h-2 rounded-full flex-shrink-0 ${
@@ -296,16 +298,16 @@ export function DashboardPage() {
                       }`}
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-gray-200 text-xs font-medium truncate">
+                      <p className="text-xs font-medium truncate" style={{ color: '#f5d0de' }}>
                         {camp.name}
                       </p>
-                      <p className="text-gray-500 text-xs capitalize">
+                      <p className="text-xs capitalize" style={{ color: '#7a3550' }}>
                         {camp.channel} · {camp.sent} sent
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-white text-xs font-semibold">{rate}%</p>
-                      <p className="text-gray-500 text-xs">delivered</p>
+                      <p className="text-xs font-semibold" style={{ color: '#f5d0de' }}>{rate}%</p>
+                      <p className="text-xs" style={{ color: '#7a3550' }}>delivered</p>
                     </div>
                   </div>
                 )
@@ -313,8 +315,8 @@ export function DashboardPage() {
             )}
             {!overview?.campaign_performance?.length && (
               <div className="text-center py-8">
-                <p className="text-gray-500 text-sm">No campaigns yet</p>
-                <p className="text-gray-600 text-xs">
+                <p className="text-sm" style={{ color: '#7a3550' }}>No campaigns yet</p>
+                <p className="text-xs" style={{ color: '#5a2535' }}>
                   Launch one from AI Copilot
                 </p>
               </div>

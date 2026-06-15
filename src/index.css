@@ -9,7 +9,7 @@
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
-  background-color: #0a0a0f;
+  background-color: #0a0608;
   color: #f3f4f6;
 }
 
@@ -18,10 +18,10 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f0f17;
+  background: #0f0810;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #252535;
+  background: #2a1520;
   border-radius: 3px;
 }
