@@ -194,7 +194,7 @@ export function AnalyticsPage() {
               Select Campaign
             </h2>
           </div>
-          <div className="max-h-80 overflow-y-auto" style={{ divideColor: '#2a1520' }}>
+          <div className="max-h-80 overflow-y-auto">
             {campaigns.length === 0 ? (
               <div className="px-4 py-8 text-center">
                 <AlertCircle className="w-6 h-6 mx-auto mb-2" style={{ color: '#2a1520' }} />
