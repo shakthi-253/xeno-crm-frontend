@@ -21,12 +21,12 @@ function KPICard({
   color: string
 }) {
   return (
-    <div className="rounded-xl p-5" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
+    <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
       <div className={`w-9 h-9 rounded-lg ${color} flex items-center justify-center mb-4`}>
         <Icon className="w-4 h-4 text-white" />
       </div>
-      <p className="text-2xl font-bold" style={{ color: '#f5d0de' }}>{value}</p>
-      <p className="text-sm mt-1" style={{ color: '#7a3550' }}>{label}</p>
+      <p className="text-2xl font-bold text-white">{value}</p>
+      <p className="text-gray-500 text-sm mt-1">{label}</p>
     </div>
   )
 }
@@ -47,15 +47,15 @@ function FunnelBar({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between text-sm">
-        <span style={{ color: '#c8899e' }}>{label}</span>
+        <span className="text-gray-400">{label}</span>
         <div className="flex items-center gap-2">
-          <span className="font-semibold" style={{ color: '#f5d0de' }}>
+          <span className="text-white font-semibold">
             {value.toLocaleString('en-IN')}
           </span>
-          <span className="text-xs" style={{ color: '#7a3550' }}>{percentage}%</span>
+          <span className="text-gray-500 text-xs">{percentage}%</span>
         </div>
       </div>
-      <div className="h-2 rounded-full overflow-hidden" style={{ background: '#2a1520' }}>
+      <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
         <div
           className={`h-full ${color} rounded-full transition-all duration-700`}
           style={{ width: `${max > 0 ? (value / max) * 100 : 0}%` }}
@@ -127,7 +127,7 @@ export function AnalyticsPage() {
   if (loading) {
     return (
       <div className="p-8 flex items-center justify-center min-h-96">
-        <Loader2 className="w-8 h-8 animate-spin" style={{ color: '#c0185a' }} />
+        <Loader2 className="w-8 h-8 text-violet-400 animate-spin" />
       </div>
     )
   }
@@ -138,17 +138,16 @@ export function AnalyticsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold" style={{ color: '#f5d0de' }}>
+          <h1 className="text-2xl font-bold text-white">
             Campaign Analytics
           </h1>
-          <p className="text-sm mt-1" style={{ color: '#7a3550' }}>
+          <p className="text-gray-400 text-sm mt-1">
             Track performance across all campaigns
           </p>
         </div>
         <button
           onClick={loadCampaigns}
-          className="flex items-center gap-2 text-sm transition-colors"
-          style={{ color: '#7a3550' }}
+          className="flex items-center gap-2 text-gray-400 hover:text-gray-200 text-sm transition-colors"
         >
           <RefreshCw className="w-4 h-4" />
           Refresh
@@ -157,28 +156,63 @@ export function AnalyticsPage() {
 
       {/* Overall KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <KPICard icon={Mail} label="Total Sent" value={totalSent.toLocaleString('en-IN')} color="bg-rose-700" />
-        <KPICard icon={CheckCircle} label="Delivery Rate" value={`${avgDelivery}%`} color="bg-emerald-600" />
-        <KPICard icon={TrendingUp} label="Total Opens" value={totalOpened.toLocaleString('en-IN')} color="bg-yellow-600" />
-        <KPICard icon={MousePointerClick} label="Total Clicks" value={totalClicked.toLocaleString('en-IN')} color="bg-purple-700" />
+        <KPICard
+          icon={Mail}
+          label="Total Sent"
+          value={totalSent.toLocaleString('en-IN')}
+          color="bg-violet-600"
+        />
+        <KPICard
+          icon={CheckCircle}
+          label="Delivery Rate"
+          value={`${avgDelivery}%`}
+          color="bg-emerald-600"
+        />
+        <KPICard
+          icon={TrendingUp}
+          label="Total Opens"
+          value={totalOpened.toLocaleString('en-IN')}
+          color="bg-cyan-600"
+        />
+        <KPICard
+          icon={MousePointerClick}
+          label="Total Clicks"
+          value={totalClicked.toLocaleString('en-IN')}
+          color="bg-orange-600"
+        />
       </div>
 
       {/* Bar Chart */}
       {chartData.length > 0 && (
-        <div className="rounded-xl p-6" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
-          <h2 className="font-semibold mb-5" style={{ color: '#f5d0de' }}>
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+          <h2 className="text-white font-semibold mb-5">
             Campaign Performance Comparison
           </h2>
           <ResponsiveContainer width="100%" height={240}>
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#2a1520" />
-              <XAxis dataKey="name" tick={{ fill: '#7a3550', fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#7a3550', fontSize: 10 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ background: '#1a0810', border: '1px solid #2a1520', borderRadius: '8px' }} />
-              <Bar dataKey="sent" name="Sent" fill="#c0185a" radius={[2,2,0,0]} />
-              <Bar dataKey="delivered" name="Delivered" fill="#d4a017" radius={[2,2,0,0]} />
-              <Bar dataKey="opened" name="Opened" fill="#7a3db0" radius={[2,2,0,0]} />
-              <Bar dataKey="clicked" name="Clicked" fill="#10b981" radius={[2,2,0,0]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
+              <XAxis
+                dataKey="name"
+                tick={{ fill: '#6b7280', fontSize: 10 }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                tick={{ fill: '#6b7280', fontSize: 10 }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <Tooltip
+                contentStyle={{
+                  background: '#1f2937',
+                  border: '1px solid #374151',
+                  borderRadius: '8px'
+                }}
+              />
+              <Bar dataKey="sent" name="Sent" fill="#7c3aed" radius={[2,2,0,0]} />
+              <Bar dataKey="delivered" name="Delivered" fill="#06b6d4" radius={[2,2,0,0]} />
+              <Bar dataKey="opened" name="Opened" fill="#10b981" radius={[2,2,0,0]} />
+              <Bar dataKey="clicked" name="Clicked" fill="#f59e0b" radius={[2,2,0,0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -188,17 +222,17 @@ export function AnalyticsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {/* Campaign List */}
-        <div className="rounded-xl overflow-hidden" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
-          <div className="px-4 py-3" style={{ borderBottom: '1px solid #2a1520' }}>
-            <h2 className="text-sm font-medium" style={{ color: '#f5d0de' }}>
+        <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-800">
+            <h2 className="text-white font-medium text-sm">
               Select Campaign
             </h2>
           </div>
-          <div className="max-h-80 overflow-y-auto">
+          <div className="divide-y divide-gray-800 max-h-80 overflow-y-auto">
             {campaigns.length === 0 ? (
               <div className="px-4 py-8 text-center">
-                <AlertCircle className="w-6 h-6 mx-auto mb-2" style={{ color: '#2a1520' }} />
-                <p className="text-sm" style={{ color: '#7a3550' }}>No campaigns yet</p>
+                <AlertCircle className="w-6 h-6 text-gray-600 mx-auto mb-2" />
+                <p className="text-gray-500 text-sm">No campaigns yet</p>
               </div>
             ) : (
               campaigns.map((campaign) => (
@@ -208,14 +242,14 @@ export function AnalyticsPage() {
                     setSelected(campaign.campaign_id)
                     loadAnalytics(campaign.campaign_id)
                   }}
-                  className="w-full text-left px-4 py-3 transition-colors"
-                  style={{
-                    background: selected === campaign.campaign_id ? '#c0185a10' : 'transparent',
-                    borderBottom: '1px solid #1a0810'
-                  }}
+                  className={`w-full text-left px-4 py-3 hover:bg-gray-800/50 transition-colors ${
+                    selected === campaign.campaign_id
+                      ? 'bg-violet-500/10'
+                      : ''
+                  }`}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <p className="text-sm font-medium truncate max-w-36" style={{ color: '#f5d0de' }}>
+                    <p className="text-gray-200 text-sm font-medium truncate max-w-36">
                       {campaign.name}
                     </p>
                     <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
@@ -226,7 +260,7 @@ export function AnalyticsPage() {
                         : 'bg-gray-600'
                     }`} />
                   </div>
-                  <p className="text-xs capitalize" style={{ color: '#7a3550' }}>
+                  <p className="text-gray-500 text-xs capitalize">
                     {campaign.channel} · {campaign.stats.sent} sent
                   </p>
                 </button>
@@ -236,19 +270,19 @@ export function AnalyticsPage() {
         </div>
 
         {/* Funnel */}
-        <div className="lg:col-span-2 rounded-xl p-6" style={{ background: '#0f0810', border: '1px solid #2a1520' }}>
+        <div className="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-xl p-6">
           {analyticsLoading ? (
             <div className="flex items-center justify-center h-48">
-              <Loader2 className="w-6 h-6 animate-spin" style={{ color: '#c0185a' }} />
+              <Loader2 className="w-6 h-6 text-violet-400 animate-spin" />
             </div>
           ) : analytics ? (
             <>
               <div className="flex items-start justify-between mb-6">
                 <div>
-                  <h2 className="font-semibold" style={{ color: '#f5d0de' }}>
+                  <h2 className="text-white font-semibold">
                     {analytics.campaign.name}
                   </h2>
-                  <p className="text-xs mt-0.5 capitalize" style={{ color: '#7a3550' }}>
+                  <p className="text-gray-500 text-xs mt-0.5 capitalize">
                     {analytics.campaign.channel} campaign
                   </p>
                 </div>
@@ -265,42 +299,72 @@ export function AnalyticsPage() {
 
               {/* Rate KPIs */}
               <div className="grid grid-cols-3 gap-3 mb-6">
-                <div className="rounded-lg p-3 text-center" style={{ background: '#1a0810' }}>
-                  <p className="text-xl font-bold" style={{ color: '#c0185a' }}>
+                <div className="bg-gray-800/50 rounded-lg p-3 text-center">
+                  <p className="text-xl font-bold text-violet-400">
                     {analytics.funnel.delivery_rate}%
                   </p>
-                  <p className="text-xs" style={{ color: '#7a3550' }}>Delivery Rate</p>
+                  <p className="text-gray-500 text-xs">Delivery Rate</p>
                 </div>
-                <div className="rounded-lg p-3 text-center" style={{ background: '#1a0810' }}>
-                  <p className="text-xl font-bold" style={{ color: '#d4a017' }}>
+                <div className="bg-gray-800/50 rounded-lg p-3 text-center">
+                  <p className="text-xl font-bold text-cyan-400">
                     {analytics.funnel.open_rate}%
                   </p>
-                  <p className="text-xs" style={{ color: '#7a3550' }}>Open Rate</p>
+                  <p className="text-gray-500 text-xs">Open Rate</p>
                 </div>
-                <div className="rounded-lg p-3 text-center" style={{ background: '#1a0810' }}>
+                <div className="bg-gray-800/50 rounded-lg p-3 text-center">
                   <p className="text-xl font-bold text-emerald-400">
                     {analytics.funnel.ctr}%
                   </p>
-                  <p className="text-xs" style={{ color: '#7a3550' }}>CTR</p>
+                  <p className="text-gray-500 text-xs">CTR</p>
                 </div>
               </div>
 
               {/* Funnel Bars */}
               <div className="space-y-3">
-                <h3 className="text-xs uppercase tracking-wide mb-3" style={{ color: '#7a3550' }}>
+                <h3 className="text-gray-400 text-xs uppercase tracking-wide mb-3">
                   Delivery Funnel
                 </h3>
-                <FunnelBar label="Sent" value={analytics.funnel.sent} max={analytics.funnel.total} color="bg-rose-600" percentage={100} />
-                <FunnelBar label="Delivered" value={analytics.funnel.delivered} max={analytics.funnel.total} color="bg-yellow-500" percentage={analytics.funnel.delivery_rate} />
-                <FunnelBar label="Opened" value={analytics.funnel.opened} max={analytics.funnel.total} color="bg-purple-500" percentage={analytics.funnel.open_rate} />
-                <FunnelBar label="Clicked" value={analytics.funnel.clicked} max={analytics.funnel.total} color="bg-emerald-500" percentage={analytics.funnel.ctr} />
-                <FunnelBar label="Failed" value={analytics.funnel.failed} max={analytics.funnel.total} color="bg-red-500" percentage={analytics.funnel.failure_rate} />
+                <FunnelBar
+                  label="Sent"
+                  value={analytics.funnel.sent}
+                  max={analytics.funnel.total}
+                  color="bg-violet-500"
+                  percentage={100}
+                />
+                <FunnelBar
+                  label="Delivered"
+                  value={analytics.funnel.delivered}
+                  max={analytics.funnel.total}
+                  color="bg-cyan-500"
+                  percentage={analytics.funnel.delivery_rate}
+                />
+                <FunnelBar
+                  label="Opened"
+                  value={analytics.funnel.opened}
+                  max={analytics.funnel.total}
+                  color="bg-emerald-500"
+                  percentage={analytics.funnel.open_rate}
+                />
+                <FunnelBar
+                  label="Clicked"
+                  value={analytics.funnel.clicked}
+                  max={analytics.funnel.total}
+                  color="bg-yellow-500"
+                  percentage={analytics.funnel.ctr}
+                />
+                <FunnelBar
+                  label="Failed"
+                  value={analytics.funnel.failed}
+                  max={analytics.funnel.total}
+                  color="bg-red-500"
+                  percentage={analytics.funnel.failure_rate}
+                />
               </div>
             </>
           ) : (
             <div className="flex flex-col items-center justify-center h-48">
-              <AlertCircle className="w-8 h-8 mb-2" style={{ color: '#2a1520' }} />
-              <p className="text-sm" style={{ color: '#7a3550' }}>
+              <AlertCircle className="w-8 h-8 text-gray-700 mb-2" />
+              <p className="text-gray-500 text-sm">
                 Select a campaign to view analytics
               </p>
             </div>
